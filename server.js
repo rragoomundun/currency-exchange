@@ -7,6 +7,7 @@ dotenv.config({ path: './config/config.env' });
 
 const app = express();
 
+// Use environmental variables to keep sensitive data private
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.API_KEY;
 const API_BASE_URL = process.env.API_BASE_URL;
@@ -18,6 +19,7 @@ app.get('/', async (req, res) => {
   const { initialCurrency, amount, endCurrency } = req.query;
   const ejsVars = { initialCurrency, amount, endCurrency };
 
+  // If inititialCurrency, amount, and endCurrency have a value we can make the API call
   if (initialCurrency && amount && endCurrency) {
     try {
       const response = await axios.get(`${API_URL}/pair/${initialCurrency}/${endCurrency}/${amount}`);
